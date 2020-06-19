@@ -1,7 +1,7 @@
 package cn.deali.poemnote
 
 import android.os.Bundle
-import cn.deali.poemnote.fragment.HomeFragment
+import cn.deali.poemnote.fragment.MainFragment
 import com.qmuiteam.qmui.arch.QMUIActivity
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 
@@ -14,7 +14,7 @@ class LauncherActivity : QMUIActivity() {
         val intent = QMUIFragmentActivity.intentOf(
             this,
             CommonHolderActivity::class.java,
-            HomeFragment::class.java
+            MainFragment::class.java
         )
         startActivity(intent)
 
