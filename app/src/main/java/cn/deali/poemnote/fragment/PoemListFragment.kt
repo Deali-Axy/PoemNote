@@ -4,28 +4,31 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import cn.deali.poemnote.CommonHolderActivity
 import cn.deali.poemnote.R
-import cn.deali.poemnote.adapter.PoemNoteListAdapter
+import cn.deali.poemnote.adapter.PoemListAdapter
 import com.qmuiteam.qmui.arch.QMUIFragment
-import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 import com.qmuiteam.qmui.kotlin.onClick
-import kotlinx.android.synthetic.main.fragment_playground.*
+import kotlinx.android.synthetic.main.fragment_poem_list.*
 
-class PlaygroundFragment : QMUIFragment() {
+class PoemListFragment : QMUIFragment() {
     @SuppressLint("InflateParams")
     override fun onCreateView(): View {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_playground, null)
+        return LayoutInflater.from(context).inflate(R.layout.fragment_poem_list, null)
     }
 
     override fun onViewCreated(rootView: View) {
         super.onViewCreated(rootView)
-        topbar.setTitle("笔记广场")
+        initTopBar()
 
         val listLayoutManager = LinearLayoutManager(
             requireContext(), LinearLayoutManager.VERTICAL, false
         )
-        poemnote_list.layoutManager = listLayoutManager
-        poemnote_list.adapter = PoemNoteListAdapter()
+        poem_list.layoutManager = listLayoutManager
+        poem_list.adapter = PoemListAdapter()
+    }
+
+    private fun initTopBar() {
+        topbar.setTitle("诗词列表")
+        topbar.addLeftBackImageButton().onClick { popBackStack() }
     }
 }

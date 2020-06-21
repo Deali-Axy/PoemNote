@@ -3,13 +3,17 @@ package cn.deali.poemnote.fragment
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-import androidx.viewpager.widget.PagerAdapter
+import cn.deali.poemnote.CommonHolderActivity
 import cn.deali.poemnote.R
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import cn.deali.poemnote.ext.toast
+import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.typeface.library.materialdesigniconic.MaterialDesignIconic
+import com.mikepenz.iconics.utils.sizeDp
+import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter
-import com.qmuiteam.qmui.util.QMUIDrawableHelper
+import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -22,12 +26,14 @@ class MainFragment : QMUIFragment() {
     override fun onViewCreated(rootView: View) {
         super.onViewCreated(rootView)
 
-        topbar.setTitle("诗词笔记")
-
+        initTopBar()
         initTabs()
         initPagers()
     }
 
+    private fun initTopBar() {
+        topbar.setTitle("诗词笔记")
+    }
 
     private fun initTabs() {
         context?.toast("初始化")
@@ -37,27 +43,27 @@ class MainFragment : QMUIFragment() {
             .setTextSize(QMUIDisplayHelper.sp2px(context, 13), QMUIDisplayHelper.sp2px(context, 15))
             .setDynamicChangeIconColor(false)
 
-        val component = builder
-            .setNormalDrawable(context?.getDrawable(R.mipmap.icon_tabbar_component))
-            .setSelectedDrawable(context?.getDrawable(R.mipmap.icon_tabbar_component_selected))
+        val home = builder
+            .setNormalDrawable(IconicsDrawable(requireContext(), MaterialDesignIconic.Icon.gmi_home).apply { sizeDp(24) })
+            .setSelectedDrawable(IconicsDrawable(requireContext(), MaterialDesignIconic.Icon.gmi_home).apply { sizeDp(24) })
             .setText("主页")
             .build(context)
 
-        val lab = builder
-            .setNormalDrawable(context?.getDrawable(R.mipmap.icon_tabbar_lab))
-            .setSelectedDrawable(context?.getDrawable(R.mipmap.icon_tabbar_lab_selected))
+        val playground = builder
+            .setNormalDrawable(IconicsDrawable(requireContext(), MaterialDesignIconic.Icon.gmi_mood).apply { sizeDp(24) })
+            .setSelectedDrawable(IconicsDrawable(requireContext(), MaterialDesignIconic.Icon.gmi_mood).apply { sizeDp(24) })
             .setText("广场")
             .build(context)
 
-        val utils = builder
-            .setNormalDrawable(context?.getDrawable(R.mipmap.icon_tabbar_util))
-            .setSelectedDrawable(context?.getDrawable(R.mipmap.icon_tabbar_util_selected))
-            .setText("功能")
+        val user = builder
+            .setNormalDrawable(IconicsDrawable(requireContext(), MaterialDesignIconic.Icon.gmi_account).apply { sizeDp(24) })
+            .setSelectedDrawable(IconicsDrawable(requireContext(), MaterialDesignIconic.Icon.gmi_account).apply { sizeDp(24) })
+            .setText("我")
             .build(context)
 
-        tabs.addTab(component)
-            .addTab(lab)
-            .addTab(utils)
+        tabs.addTab(home)
+            .addTab(playground)
+            .addTab(user)
 
         tabs.mode = QMUITabSegment.MODE_FIXED
     }

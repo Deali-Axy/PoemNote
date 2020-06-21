@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+ Tencent is pleased to support the open source community by making QMUI_Android available.
+
+ Copyright (C) 2017-2018 THL A29 Limited, a Tencent company. All rights reserved.
+
+ Licensed under the MIT License (the "License"); you may not use this file except in
+ compliance with the License. You may obtain a copy of the License at
+
+ http://opensource.org/licenses/MIT
+
+ Unless required by applicable law or agreed to in writing, software distributed under the License is
+ distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ either express or implied. See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|center"
+            android:orientation="vertical">
+
+            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:id="@+id/img_card"
+                android:layout_width="350dp"
+                android:layout_height="300dp"
+                android:src="@mipmap/example_image5"
+                app:qmui_corner_radius="5dp" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="春江花月夜"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="春江潮水连海平，海上明月共潮生。" />
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="唐 / 张若虚"
+                android:textColor="@color/qmui_config_color_50_pure_black" />
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/qmui_config_color_white" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <com.mikepenz.iconics.view.IconicsImageButton
+                    android:id="@+id/btn_favorite"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@color/qmui_config_color_white"
+                    app:iiv_color="@color/qmui_config_color_50_pure_black"
+                    app:iiv_icon="gmd-favorite_border" />
+
+                <com.mikepenz.iconics.view.IconicsImageButton
+                    android:id="@+id/btn_note"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/qmui_config_color_white"
+                    app:iiv_color="@color/qmui_config_color_50_pure_black"
+                    app:iiv_icon="gmd-create" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <com.mikepenz.iconics.view.IconicsImageButton
+                        android:id="@+id/btn_detail"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@color/qmui_config_color_white"
+                        app:iiv_color="@color/qmui_config_color_50_pure_black"
+                        app:iiv_icon="gmd-arrow_forward" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <!--
+                <com.mikepenz.iconics.view.IconicsButton
+                    android:text="{gmd-create} 记笔记"
+                    android:textColor="@color/qmui_config_color_blue"
+                    android:textSize="20sp"
+                    android:background="@color/qmui_config_color_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                -->
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+

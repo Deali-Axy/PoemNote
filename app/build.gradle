@@ -39,6 +39,17 @@ dependencies {
     compileOnly 'com.google.android.wearable:wearable:2.5.0'
     kapt "com.qmuiteam:arch-compiler:$qmui_version" // use annotationProcessor if java
 
+    // Android Iconics
+    implementation "com.mikepenz:iconics-core:${latestAndroidIconicsRelease}"
+    // view's dependency
+    implementation "com.mikepenz:iconics-views:${latestAndroidIconicsRelease}"
+    // 图标包
+    implementation 'com.mikepenz:google-material-typeface:3.0.1.4.original-kotlin@aar'
+    implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.6-kotlin@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:5.9.0.0-kotlin@aar'
+    implementation 'com.mikepenz:octicons-typeface:3.2.0.6-kotlin@aar'
+    implementation 'com.mikepenz:meteocons-typeface:1.1.0.5-kotlin@aar'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

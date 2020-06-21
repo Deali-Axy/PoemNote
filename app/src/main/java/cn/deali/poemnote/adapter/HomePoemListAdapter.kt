@@ -21,15 +21,24 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import cn.deali.poemnote.CommonHolderActivity
 import cn.deali.poemnote.R
+import cn.deali.poemnote.ext.toast
+import cn.deali.poemnote.fragment.PoemFragment
+import cn.deali.poemnote.fragment.PoemListFragment
+import com.mikepenz.iconics.view.IconicsImageButton
+import com.qmuiteam.qmui.arch.QMUIFragmentActivity
+import com.qmuiteam.qmui.kotlin.onClick
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import java.util.*
 
 /**
  * Demo 中通用的 RecyclerView Adapter。
  * Created by sm on 2015/5/3.
  */
-class QDRecyclerViewAdapter :
-    RecyclerView.Adapter<QDRecyclerViewAdapter.ViewHolder>() {
+class HomePoemListAdapter :
+    RecyclerView.Adapter<HomePoemListAdapter.ViewHolder>() {
     private val mItems: MutableList<Data>
     private var mOnItemClickListener: AdapterView.OnItemClickListener? = null
     fun addItem(position: Int) {
@@ -47,20 +56,35 @@ class QDRecyclerViewAdapter :
         notifyItemRemoved(position)
     }
 
-    override fun onCreateViewHolder(
-        viewGroup: ViewGroup,
-        i: Int
-    ): ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
-        val root =
-            inflater.inflate(R.layout.recycler_view_item, viewGroup, false)
+        val root = inflater.inflate(R.layout.poem_card_large, viewGroup, false)
+        val btnFavorite: IconicsImageButton = root.findViewById(R.id.btn_favorite)
+        val btnNote: IconicsImageButton = root.findViewById(R.id.btn_note)
+        val btnDetail: IconicsImageButton = root.findViewById(R.id.btn_detail)
+
+        btnNote.onClick {
+            QMUIDialog.MessageDialogBuilder(root.context)
+                .setTitle("测试")
+                .setMessage("测试信息")
+                .addAction("取消") { dialog, index -> dialog.dismiss() }
+                .create().show()
+        }
+
+        btnDetail.onClick {
+            root.context.startActivity(
+                QMUIFragmentActivity.intentOf(
+                    root.context,
+                    CommonHolderActivity::class.java,
+                    PoemFragment::class.java
+                )
+            )
+        }
+
         return ViewHolder(root, this)
     }
 
-    override fun onBindViewHolder(
-        viewHolder: ViewHolder,
-        i: Int
-    ) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val data = mItems[i]
         viewHolder.setText(data.text)
     }
@@ -90,10 +114,10 @@ class QDRecyclerViewAdapter :
 
     class Data(var text: String)
 
-    class ViewHolder(itemView: View, adapter: QDRecyclerViewAdapter) :
+    class ViewHolder(itemView: View, adapter: HomePoemListAdapter) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val mTextView: TextView
-        private val mAdapter: QDRecyclerViewAdapter
+        private val mAdapter: HomePoemListAdapter
         fun setText(text: String?) {
             mTextView.text = text
         }
