@@ -1,6 +1,10 @@
 # PoemNote
 
 
+## Kotlin Android开发资料
+
+- https://blog.csdn.net/aqi00/article/details/75283548
+
 ## QMUI 相关资料
 
 ### Github Wiki
