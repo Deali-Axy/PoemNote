@@ -65,18 +65,10 @@
                 android:text="唐 / 张若虚"
                 android:textColor="@color/qmui_config_color_50_pure_black" />
 
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/qmui_config_color_white" />
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="15dp"
                 android:orientation="horizontal">
 
                 <com.mikepenz.iconics.view.IconicsImageButton

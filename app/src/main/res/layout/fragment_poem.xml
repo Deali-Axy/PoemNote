@@ -29,7 +29,7 @@
             android:id="@+id/tv_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:text="唐 / 张若虚"
             android:textAlignment="center"
             android:textColor="@color/qmui_config_color_50_pure_black" />
@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:text="春江潮水连海平，\n海上明月共潮生。"
             android:lineSpacingExtra="6dp"
             android:textSize="18sp"
