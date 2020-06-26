@@ -3,24 +3,16 @@ package cn.deali.poemnote.fragment
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-import cn.deali.poemnote.CommonHolderActivity
 import cn.deali.poemnote.R
-import cn.deali.poemnote.event.MessageEvent
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import cn.deali.poemnote.ext.toast
-import cn.deali.poemnote.utils.TipDialog
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.materialdesigniconic.MaterialDesignIconic
 import com.mikepenz.iconics.utils.sizeDp
-import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter
-import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 class MainFragment : QMUIFragment() {
     @SuppressLint("InflateParams")
@@ -41,8 +33,6 @@ class MainFragment : QMUIFragment() {
     }
 
     private fun initTabs() {
-        context?.toast("初始化")
-
         val builder = tabs.tabBuilder()
         builder.setSelectedIconScale(1.2f)
             .setTextSize(QMUIDisplayHelper.sp2px(context, 13), QMUIDisplayHelper.sp2px(context, 15))

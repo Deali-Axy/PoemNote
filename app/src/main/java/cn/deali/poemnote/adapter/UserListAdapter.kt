@@ -3,17 +3,15 @@ package cn.deali.poemnote.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import cn.deali.poemnote.App
 import cn.deali.poemnote.R
-import cn.deali.poemnote.event.MessageEvent
 import cn.deali.poemnote.event.NewUserCreatedEvent
+import cn.deali.poemnote.event.UserLoginEvent
 import cn.deali.poemnote.ext.toast
 import cn.deali.poemnote.model.User
-import cn.deali.poemnote.utils.TipDialog
 import com.qmuiteam.qmui.alpha.QMUIAlphaTextView
 import com.qmuiteam.qmui.kotlin.onClick
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -40,7 +38,7 @@ class UserListAdapter(private var users: MutableList<User>) :
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: NewUserCreatedEvent) {
         users.add(event.user)
-        parent.context.toast("创建用户成功！")
+        // parent.context.toast("创建用户成功！")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -58,7 +56,10 @@ class UserListAdapter(private var users: MutableList<User>) :
         val user = users[position]
         holder.itemView.findViewById<QMUIAlphaTextView>(R.id.tv_username).text = user.name
         holder.itemView.onClick {
-            holder.itemView.context.toast("用户名：${user.name}")
+            // 设置当前用户
+            App.instance.currentUser = user
+            // 发送用户登录消息
+            EventBus.getDefault().postSticky(UserLoginEvent(user))
         }
     }
 }

@@ -3,12 +3,16 @@ package cn.deali.poemnote.utils
 import android.view.View
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 
-object TipDialog {
-    fun show(view: View, iconType: Int, content: String, delayMillis: Long) {
-        val tipDialog = QMUITipDialog.Builder(view.context)
+object TipDialogUtils {
+    fun build(view: View, iconType: Int, content: String): QMUITipDialog {
+        return QMUITipDialog.Builder(view.context)
             .setIconType(iconType)
             .setTipWord(content)
             .create()
+    }
+
+    fun show(view: View, iconType: Int, content: String, delayMillis: Long) {
+        val tipDialog = build(view, iconType, content)
         tipDialog.show()
         view.postDelayed({ tipDialog.dismiss() }, delayMillis)
     }

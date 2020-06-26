@@ -33,7 +33,7 @@
             android:orientation="vertical">
 
             <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-                android:id="@+id/img_card"
+                android:id="@+id/iv_card"
                 android:layout_width="350dp"
                 android:layout_height="300dp"
                 android:src="@mipmap/example_image5"

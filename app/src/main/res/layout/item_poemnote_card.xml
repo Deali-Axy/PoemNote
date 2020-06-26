@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_poem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:clickable="true"
+    android:focusable="true"
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp">
 
@@ -62,6 +65,7 @@
                         android:background="@color/qmui_config_color_separator" />
 
                     <TextView
+                        android:id="@+id/tv_poem_sentence"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -70,6 +74,7 @@
                         android:textColor="@color/qmui_config_color_75_pure_black" />
 
                     <TextView
+                        android:id="@+id/tv_poem_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"

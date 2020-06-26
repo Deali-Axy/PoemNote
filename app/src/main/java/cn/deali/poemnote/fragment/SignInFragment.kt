@@ -1,8 +1,6 @@
 package cn.deali.poemnote.fragment
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,10 +9,9 @@ import cn.deali.poemnote.ObjectBox
 import cn.deali.poemnote.R
 import cn.deali.poemnote.adapter.UserListAdapter
 import cn.deali.poemnote.event.MessageEvent
-import cn.deali.poemnote.event.NewUserCreatedEvent
-import cn.deali.poemnote.ext.toast
+import cn.deali.poemnote.event.UserLoginEvent
 import cn.deali.poemnote.model.User
-import cn.deali.poemnote.utils.TipDialog
+import cn.deali.poemnote.utils.TipDialogUtils
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 import com.qmuiteam.qmui.kotlin.onClick
@@ -34,6 +31,32 @@ class SignInFragment : QMUIFragment() {
         userBox = ObjectBox.boxStore.boxFor()
         rootView = LayoutInflater.from(context).inflate(R.layout.fragment_sign_in, null)
         return rootView
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
+    }
+
+    // 接收文字消息事件
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onEvent(event: MessageEvent) {
+        TipDialogUtils.show(rootView, event.iconType, event.content, 1500)
+
+        // todo 这里应该释放事件的，但是一释放就会出错，我顶不住了
+        // EventBus.getDefault().cancelEventDelivery(event)
+    }
+
+    // 接收用户登录事件
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onEvent(event: UserLoginEvent) {
+        // 返回上一级
+        popBackStack()
     }
 
     override fun onViewCreated(rootView: View) {

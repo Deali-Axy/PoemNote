@@ -1,14 +1,9 @@
 package cn.deali.poemnote
 
-import cn.deali.poemnote.event.MessageEvent
 import cn.deali.poemnote.fragment.*
-import cn.deali.poemnote.utils.TipDialog
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 import com.qmuiteam.qmui.arch.annotation.DefaultFirstFragment
 import com.qmuiteam.qmui.arch.annotation.FirstFragments
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 // 如果我们没在 Activity 的 @FirstFragments 数组里加上 Fragment， 那么 QMUIFragmentActivity.intentOf 会抛错的
 @FirstFragments(

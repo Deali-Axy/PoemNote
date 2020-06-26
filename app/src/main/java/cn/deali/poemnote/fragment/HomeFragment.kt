@@ -36,9 +36,7 @@ class HomeFragment : QMUIFragment() {
             requireContext(), LinearLayoutManager.VERTICAL, false
         )
         recyclerView.layoutManager = pagerLayoutManager
-        val recyclerViewAdapter = HomePoemListAdapter()
-        recyclerViewAdapter.itemCount = 10
-        recyclerView.adapter = recyclerViewAdapter
+        recyclerView.adapter = HomePoemListAdapter()
         pagerWrap.addView(recyclerView)
 
         // PagerSnapHelper每次只能滚动一个item;用LinearSnapHelper则可以一次滚动多个，并最终保证定位

@@ -15,56 +15,147 @@
  */
 package cn.deali.poemnote.adapter
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import cn.deali.poemnote.App
 import cn.deali.poemnote.CommonHolderActivity
+import cn.deali.poemnote.ObjectBox
 import cn.deali.poemnote.R
+import cn.deali.poemnote.event.NewFavoriteCreatedEvent
+import cn.deali.poemnote.event.NewNoteCreatedEvent
+import cn.deali.poemnote.event.PoemEvent
 import cn.deali.poemnote.fragment.PoemFragment
+import cn.deali.poemnote.model.Poem
+import cn.deali.poemnote.model.PoemNote
+import cn.deali.poemnote.model.UserFavorite
+import cn.deali.poemnote.utils.TipDialogUtils
+import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.view.IconicsImageButton
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 import com.qmuiteam.qmui.kotlin.onClick
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.squareup.picasso.Picasso
+import io.objectbox.Box
+import io.objectbox.kotlin.boxFor
+import org.greenrobot.eventbus.EventBus
+import java.time.LocalDate
 import java.util.*
 
-/**
- * Demo 中通用的 RecyclerView Adapter。
- * Created by sm on 2015/5/3.
- */
-class HomePoemListAdapter :
-    RecyclerView.Adapter<HomePoemListAdapter.ViewHolder>() {
-    private val mItems: MutableList<Data>
-    private var mOnItemClickListener: AdapterView.OnItemClickListener? = null
-    fun addItem(position: Int) {
-        if (position > mItems.size) return
-        mItems.add(position, Data(position.toString()))
-        notifyItemInserted(position)
-    }
+class HomePoemListAdapter : RecyclerView.Adapter<HomePoemListAdapter.ViewHolder>() {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    fun removeItem(position: Int) {
-        if (position >= mItems.size) return
-        mItems.removeAt(position)
-        notifyItemRemoved(position)
+    lateinit var poems: List<Poem>
+
+    init {
+        // 获取随机10首诗词
+        poems = App.instance.poemBox.all.shuffled().take(10)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
         val root = inflater.inflate(R.layout.item_poem_card_large, viewGroup, false)
+
+        return ViewHolder(root)
+    }
+
+    override fun getItemCount(): Int = poems.size
+
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val root = holder.itemView
+
+        val ivCard = root.findViewById<QMUIRadiusImageView>(R.id.iv_card)
+        val tvTitle = root.findViewById<TextView>(R.id.tv_title)
+        val tvAuthor = root.findViewById<TextView>(R.id.tv_author)
+        val tvContent = root.findViewById<TextView>(R.id.tv_content)
+        val poem = poems[position]
+
+        // 下载随机图片
+        Picasso.get().load("https://picsum.photos/300/350?name=${poem.title}")
+            .placeholder(R.mipmap.example_image5).into(ivCard)
+
+        // 显示诗词的内容
+        tvTitle.text = poem.title
+        tvAuthor.text = "${poem.dynasty} / ${poem.author}"
+        val sentences = poem.content.split(",")
+        if (sentences.isEmpty()) return
+        if (sentences.size < 2) {
+            tvContent.text = "${sentences.first()}。"
+        } else {
+            tvContent.text = "${sentences[0]}，${sentences[1]}。"
+        }
+
         val btnFavorite: IconicsImageButton = root.findViewById(R.id.btn_favorite)
         val btnNote: IconicsImageButton = root.findViewById(R.id.btn_note)
         val btnDetail: IconicsImageButton = root.findViewById(R.id.btn_detail)
 
+        // 添加收藏
+        btnFavorite.onClick {
+            if (App.instance.currentUser == null) {
+                TipDialogUtils.fail(it, "请先登录！")
+                return@onClick
+            }
+
+            val favoriteBox: Box<UserFavorite> = ObjectBox.boxStore.boxFor()
+            val userFavorite = UserFavorite()
+            userFavorite.user.target = App.instance.currentUser
+            userFavorite.poem.target = poem
+            if (favoriteBox.put(userFavorite) > 0) {
+                TipDialogUtils.success(it, "已添加到我喜欢")
+                btnFavorite.icon = IconicsDrawable(root.context, GoogleMaterial.Icon.gmd_favorite).apply {
+                    colorInt(Color.RED)
+                }
+                EventBus.getDefault().post(NewFavoriteCreatedEvent(userFavorite))
+            } else {
+                TipDialogUtils.fail(it, "添加喜欢失败！")
+            }
+        }
+
+        // 添加笔记
         btnNote.onClick {
-            QMUIDialog.MessageDialogBuilder(root.context)
+            if (App.instance.currentUser == null) {
+                TipDialogUtils.fail(it, "请先登录！")
+                return@onClick
+            }
+
+            val builder = QMUIDialog.EditTextDialogBuilder(root.context)
+            builder
                 .setTitle("测试")
-                .setMessage("测试信息")
+                .setPlaceholder("请输入笔记内容")
+                .setInputType(InputType.TYPE_CLASS_TEXT)
                 .addAction("取消") { dialog, index -> dialog.dismiss() }
+                .addAction("确定") { dialog, index ->
+                    val note = PoemNote(content = builder.editText.text.toString())
+                    note.user.target = App.instance.currentUser
+                    note.poem.target = poem
+
+                    // 写入数据库
+                    val noteBox: Box<PoemNote> = ObjectBox.boxStore.boxFor()
+                    if (noteBox.put(note) > 0) {
+                        TipDialogUtils.success(btnNote, "添加笔记成功")
+                        EventBus.getDefault().post(NewNoteCreatedEvent(note))
+                    } else {
+                        TipDialogUtils.fail(btnNote, "添加笔记失败！")
+                    }
+
+                    dialog.dismiss()
+                }
                 .create().show()
         }
 
+        // 查看详情
         btnDetail.onClick {
+            EventBus.getDefault().postSticky(PoemEvent(poem))
             root.context.startActivity(
                 QMUIFragmentActivity.intentOf(
                     root.context,
@@ -73,71 +164,5 @@ class HomePoemListAdapter :
                 )
             )
         }
-
-        return ViewHolder(root, this)
-    }
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        val data = mItems[i]
-        viewHolder.setText(data.text)
-    }
-
-    override fun getItemCount(): Int {
-        return mItems.size
-    }
-
-    fun setItemCount(count: Int) {
-        mItems.clear()
-        mItems.addAll(generateDatas(count))
-        notifyDataSetChanged()
-    }
-
-    fun setOnItemClickListener(onItemClickListener: AdapterView.OnItemClickListener?) {
-        mOnItemClickListener = onItemClickListener
-    }
-
-    private fun onItemHolderClick(itemHolder: RecyclerView.ViewHolder) {
-        if (mOnItemClickListener != null) {
-            mOnItemClickListener!!.onItemClick(
-                null, itemHolder.itemView,
-                itemHolder.adapterPosition, itemHolder.itemId
-            )
-        }
-    }
-
-    class Data(var text: String)
-
-    class ViewHolder(itemView: View, adapter: HomePoemListAdapter) :
-        RecyclerView.ViewHolder(itemView), View.OnClickListener {
-//        private val mTextView: TextView
-        private val mAdapter: HomePoemListAdapter
-        fun setText(text: String?) {
-//            mTextView.text = text
-        }
-
-        override fun onClick(v: View) {
-            mAdapter.onItemHolderClick(this)
-        }
-
-        init {
-            itemView.setOnClickListener(this)
-            mAdapter = adapter
-//            mTextView = itemView.findViewById<View>(R.id.textView) as TextView
-        }
-    }
-
-    companion object {
-        fun generateDatas(count: Int): List<Data> {
-            val mDatas =
-                ArrayList<Data>()
-            for (i in 0 until count) {
-                mDatas.add(Data(i.toString()))
-            }
-            return mDatas
-        }
-    }
-
-    init {
-        mItems = ArrayList()
     }
 }
