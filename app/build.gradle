@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.objectbox' // ObjectBox数据库
+
 
 
 android {
@@ -10,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "cn.deali.poemnote"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -24,6 +26,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -35,8 +45,6 @@ dependencies {
     // QMUI
     implementation "com.qmuiteam:qmui:$qmui_version"
     implementation "com.qmuiteam:arch:$qmui_version"
-    implementation 'androidx.wear:wear:1.0.0'
-    compileOnly 'com.google.android.wearable:wearable:2.5.0'
     kapt "com.qmuiteam:arch-compiler:$qmui_version" // use annotationProcessor if java
 
     // Android Iconics
@@ -49,6 +57,9 @@ dependencies {
     implementation 'com.mikepenz:fontawesome-typeface:5.9.0.0-kotlin@aar'
     implementation 'com.mikepenz:octicons-typeface:3.2.0.6-kotlin@aar'
     implementation 'com.mikepenz:meteocons-typeface:1.1.0.5-kotlin@aar'
+
+    // EventBus
+    implementation 'org.greenrobot:eventbus:3.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

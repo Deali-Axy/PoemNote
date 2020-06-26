@@ -17,7 +17,7 @@ class PoemNoteListAdapter : RecyclerView.Adapter<PoemNoteListAdapter.ViewHolder>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val root = inflater.inflate(R.layout.poemnote_card, parent, false)
+        val root = inflater.inflate(R.layout.item_poemnote_card, parent, false)
         return ViewHolder(root, this)
     }
 

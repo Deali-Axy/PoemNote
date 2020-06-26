@@ -19,18 +19,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.deali.poemnote.CommonHolderActivity
 import cn.deali.poemnote.R
-import cn.deali.poemnote.ext.toast
 import cn.deali.poemnote.fragment.PoemFragment
-import cn.deali.poemnote.fragment.PoemListFragment
 import com.mikepenz.iconics.view.IconicsImageButton
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import java.util.*
 
 /**
@@ -43,10 +39,7 @@ class HomePoemListAdapter :
     private var mOnItemClickListener: AdapterView.OnItemClickListener? = null
     fun addItem(position: Int) {
         if (position > mItems.size) return
-        mItems.add(
-            position,
-            Data(position.toString())
-        )
+        mItems.add(position, Data(position.toString()))
         notifyItemInserted(position)
     }
 
@@ -58,7 +51,7 @@ class HomePoemListAdapter :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
-        val root = inflater.inflate(R.layout.poem_card_large, viewGroup, false)
+        val root = inflater.inflate(R.layout.item_poem_card_large, viewGroup, false)
         val btnFavorite: IconicsImageButton = root.findViewById(R.id.btn_favorite)
         val btnNote: IconicsImageButton = root.findViewById(R.id.btn_note)
         val btnDetail: IconicsImageButton = root.findViewById(R.id.btn_detail)
@@ -116,10 +109,10 @@ class HomePoemListAdapter :
 
     class ViewHolder(itemView: View, adapter: HomePoemListAdapter) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private val mTextView: TextView
+//        private val mTextView: TextView
         private val mAdapter: HomePoemListAdapter
         fun setText(text: String?) {
-            mTextView.text = text
+//            mTextView.text = text
         }
 
         override fun onClick(v: View) {
@@ -129,7 +122,7 @@ class HomePoemListAdapter :
         init {
             itemView.setOnClickListener(this)
             mAdapter = adapter
-            mTextView = itemView.findViewById<View>(R.id.textView) as TextView
+//            mTextView = itemView.findViewById<View>(R.id.textView) as TextView
         }
     }
 

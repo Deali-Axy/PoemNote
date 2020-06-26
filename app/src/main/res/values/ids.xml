@@ -3,5 +3,7 @@
     <item name="app_common_holder_fragment_container" type="id" />
     <item name="topbar_right_about_button" type="id" />
     <item name="home_topbar_right_button" type="id" />
+    <item name="topbar_right_sign_up_button" type="id" />
+    <item name="topbar_right_sign_in_button" type="id" />
 
 </resources>

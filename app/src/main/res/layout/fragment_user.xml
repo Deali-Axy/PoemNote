@@ -19,8 +19,11 @@
             app:cardElevation="2dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_layout_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -65,15 +68,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            app:cardCornerRadius="4dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            app:cardCornerRadius="4dp"
             app:cardElevation="2dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_layout_favorite"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal">
 
                 <com.mikepenz.iconics.view.IconicsImageView
@@ -86,8 +92,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
                     android:text="我喜欢的"
                     android:textSize="16sp" />
 
@@ -99,15 +105,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            app:cardCornerRadius="4dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            app:cardCornerRadius="4dp"
             app:cardElevation="2dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_layout_my_note"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal">
 
                 <com.mikepenz.iconics.view.IconicsImageView
@@ -120,8 +129,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
                     android:text="我的笔记"
                     android:textSize="16sp" />
 
@@ -134,15 +143,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            app:cardCornerRadius="4dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            app:cardCornerRadius="4dp"
             app:cardElevation="2dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_layout_about"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal">
 
                 <com.mikepenz.iconics.view.IconicsImageView
@@ -155,9 +167,47 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
                     android:text="关于"
+                    android:textSize="16sp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_layout_logout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    app:iiv_color="@color/qmui_config_color_50_blue"
+                    app:iiv_icon="gmd-exit_to_app" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:text="注销"
                     android:textSize="16sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
