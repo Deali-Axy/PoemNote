@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.objectbox' // ObjectBox数据库
 
-
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"

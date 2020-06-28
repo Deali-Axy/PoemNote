@@ -89,10 +89,85 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:5622981897078954849",
+      "lastPropertyId": "5:6923128414565567733",
+      "name": "PoemNote",
+      "properties": [
+        {
+          "id": "1:5613361580773919203",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1205206851631431231",
+          "name": "content",
+          "type": 9
+        },
+        {
+          "id": "3:8171224293784034634",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "4:4797658777071687827",
+          "name": "userId",
+          "indexId": "1:1776163759903292936",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "User"
+        },
+        {
+          "id": "5:6923128414565567733",
+          "name": "poemId",
+          "indexId": "2:4549581972904594651",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Poem"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:973105386592704780",
+      "lastPropertyId": "4:1919958791442696942",
+      "name": "UserFavorite",
+      "properties": [
+        {
+          "id": "1:8325510709501870335",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7597081379108171422",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:444574110314860815",
+          "name": "userId",
+          "indexId": "3:7722962226302166818",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "User"
+        },
+        {
+          "id": "4:1919958791442696942",
+          "name": "poemId",
+          "indexId": "4:2334101384846167058",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Poem"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:9068553146732263909",
-  "lastIndexId": "0:0",
+  "lastEntityId": "5:973105386592704780",
+  "lastIndexId": "4:2334101384846167058",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

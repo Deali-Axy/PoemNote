@@ -21,7 +21,6 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.deali.poemnote.App
@@ -35,6 +34,7 @@ import cn.deali.poemnote.fragment.PoemFragment
 import cn.deali.poemnote.model.Poem
 import cn.deali.poemnote.model.PoemNote
 import cn.deali.poemnote.model.UserFavorite
+import cn.deali.poemnote.model.UserFavorite_
 import cn.deali.poemnote.utils.TipDialogUtils
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -47,9 +47,8 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.squareup.picasso.Picasso
 import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
+import io.objectbox.kotlin.query
 import org.greenrobot.eventbus.EventBus
-import java.time.LocalDate
-import java.util.*
 
 class HomePoemListAdapter : RecyclerView.Adapter<HomePoemListAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -107,6 +106,18 @@ class HomePoemListAdapter : RecyclerView.Adapter<HomePoemListAdapter.ViewHolder>
             }
 
             val favoriteBox: Box<UserFavorite> = ObjectBox.boxStore.boxFor()
+            // 是否已经存在收藏
+            val query = favoriteBox.query {
+                equal(UserFavorite_.userId, App.instance.currentUser!!.id)
+                equal(UserFavorite_.poemId, poem.id)
+            }
+            if (query.count() > 0) {
+                // 删除收藏
+                favoriteBox.remove(query.findFirst()!!)
+                TipDialogUtils.success(it, "取消喜欢")
+                btnFavorite.icon = IconicsDrawable(root.context, GoogleMaterial.Icon.gmd_favorite_border)
+                return@onClick
+            }
             val userFavorite = UserFavorite()
             userFavorite.user.target = App.instance.currentUser
             userFavorite.poem.target = poem
