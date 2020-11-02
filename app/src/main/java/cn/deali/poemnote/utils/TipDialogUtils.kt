@@ -3,8 +3,11 @@ package cn.deali.poemnote.utils
 import android.view.View
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 
+/**
+ * 封装了QMUI的TipDialog
+ */
 object TipDialogUtils {
-    fun build(view: View, iconType: Int, content: String): QMUITipDialog {
+    private fun build(view: View, iconType: Int, content: String): QMUITipDialog {
         return QMUITipDialog.Builder(view.context)
             .setIconType(iconType)
             .setTipWord(content)

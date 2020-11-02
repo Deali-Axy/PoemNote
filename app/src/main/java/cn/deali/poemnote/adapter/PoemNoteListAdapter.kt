@@ -30,8 +30,8 @@ class PoemNoteListAdapter : RecyclerView.Adapter<PoemNoteListAdapter.ViewHolder>
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     // 从数据库读取笔记数据
-    var noteBox: Box<PoemNote> = ObjectBox.boxStore.boxFor()
-    lateinit var notes: MutableList<PoemNote>
+    private var noteBox: Box<PoemNote> = ObjectBox.boxStore.boxFor()
+    private var notes: MutableList<PoemNote>
 
     constructor() {
         notes = noteBox.query { orderDesc(PoemNote_.createdAt) }.find()

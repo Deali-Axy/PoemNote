@@ -53,12 +53,8 @@ import org.greenrobot.eventbus.EventBus
 class HomePoemListAdapter : RecyclerView.Adapter<HomePoemListAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    lateinit var poems: List<Poem>
-
-    init {
-        // 获取随机10首诗词
-        poems = App.instance.poemBox.all.shuffled().take(10)
-    }
+    // 获取随机10首诗词
+    private var poems: List<Poem> = App.instance.poemBox.all.shuffled().take(10)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
@@ -144,8 +140,8 @@ class HomePoemListAdapter : RecyclerView.Adapter<HomePoemListAdapter.ViewHolder>
                 .setTitle("测试")
                 .setPlaceholder("请输入笔记内容")
                 .setInputType(InputType.TYPE_CLASS_TEXT)
-                .addAction("取消") { dialog, index -> dialog.dismiss() }
-                .addAction("确定") { dialog, index ->
+                .addAction("取消") { dialog, _ -> dialog.dismiss() }
+                .addAction("确定") { dialog, _ ->
                     val note = PoemNote(content = builder.editText.text.toString())
                     note.user.target = App.instance.currentUser
                     note.poem.target = poem

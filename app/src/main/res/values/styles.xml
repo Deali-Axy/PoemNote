@@ -11,6 +11,7 @@
         <item name="qmui_skin_support_topbar_image_tint_color">@color/qmui_config_color_white</item>
     </style>
 
+    <!--  启动图  -->
     <style name="AppTheme.Launcher">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/launcher_bg</item>
