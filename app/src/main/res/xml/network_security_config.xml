@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--  默认配置，是否开启Http流量允许-->
+    <base-config cleartextTrafficPermitted="true"></base-config>
+    <!--  特例配置，配置某个域名是否开启Http流量允许-->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">deali.cn</domain>
+        <domain includeSubdomains="true">221.5.2.200</domain>
+    </domain-config>
+</network-security-config>
