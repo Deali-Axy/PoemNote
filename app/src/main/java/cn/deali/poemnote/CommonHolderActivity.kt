@@ -15,7 +15,8 @@ import com.qmuiteam.qmui.arch.annotation.FirstFragments
         SignInFragment::class
     ]
 )
-// 使用 @DefaultFirstFragment 来指定默认的 First Fragment，这时 new Intent(context, CommonHolderActivity::class.java) 就会启用默认的 First Fragment
+// 使用 @DefaultFirstFragment 来指定默认的 First Fragment，
+// 这时 new Intent(context, CommonHolderActivity::class.java) 就会启用默认的 First Fragment
 @DefaultFirstFragment(MainFragment::class)
 class CommonHolderActivity : QMUIFragmentActivity() {
     override fun getContextViewId(): Int {
