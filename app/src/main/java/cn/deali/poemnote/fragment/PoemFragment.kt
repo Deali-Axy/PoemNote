@@ -47,6 +47,10 @@ class PoemFragment : QMUIFragment() {
         tv_content.text = sentences.joinToString("\n")
 
         // 删除事件广播
-        EventBus.getDefault().cancelEventDelivery(poemEvent)
+        // EventBus.getDefault().cancelEventDelivery(poemEvent)
+        // 2022-8-21：使用上面的方法会报错，因为只有发送事件的线程里才能执行 cancelEventDelivery 方法
+        // 所以在 ThreadMode.MAIN （也就是主线程）中不能调用
+        // 改成下面这样的就没问题，直接删除这个 stickEvent
+        EventBus.getDefault().removeStickyEvent(poemEvent)
     }
 }
