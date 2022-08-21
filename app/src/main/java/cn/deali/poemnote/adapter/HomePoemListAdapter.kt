@@ -77,7 +77,7 @@ class HomePoemListAdapter : RecyclerView.Adapter<HomePoemListAdapter.ViewHolder>
 
         // 下载随机图片
         Picasso.get().load("http://www.sblt.deali.cn:15002/Api/PicLib/Random/300/350?name=${poem.title}")
-            .placeholder(R.mipmap.example_image5).into(ivCard)
+            .placeholder(R.mipmap.example_image0).into(ivCard)
 
         // 显示诗词的内容
         tvTitle.text = poem.title
