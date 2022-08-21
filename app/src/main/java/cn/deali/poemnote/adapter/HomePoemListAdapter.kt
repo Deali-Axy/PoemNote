@@ -76,7 +76,7 @@ class HomePoemListAdapter : RecyclerView.Adapter<HomePoemListAdapter.ViewHolder>
         val poem = poems[position]
 
         // 下载随机图片
-        Picasso.get().load("https://picsum.photos/300/350?name=${poem.title}")
+        Picasso.get().load("http://www.sblt.deali.cn:15002/Api/PicLib/Random/300/350?name=${poem.title}")
             .placeholder(R.mipmap.example_image5).into(ivCard)
 
         // 显示诗词的内容
