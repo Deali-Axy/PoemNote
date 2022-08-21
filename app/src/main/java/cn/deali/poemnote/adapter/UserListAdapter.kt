@@ -26,7 +26,9 @@ class UserListAdapter(private var users: MutableList<User>) :
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         // 注册事件总线
-        EventBus.getDefault().register(this)
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
