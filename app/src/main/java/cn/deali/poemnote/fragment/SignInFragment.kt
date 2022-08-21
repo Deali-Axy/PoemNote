@@ -35,7 +35,9 @@ class SignInFragment : QMUIFragment() {
 
     override fun onStart() {
         super.onStart()
-        EventBus.getDefault().register(this)
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
     }
 
     override fun onStop() {
@@ -46,14 +48,18 @@ class SignInFragment : QMUIFragment() {
     // 接收文字消息事件
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onEvent(event: MessageEvent) {
+        println("MessageEvent，信息：${event.content}")
         TipDialogUtils.show(rootView, event.iconType, event.content, 1500)
 
-        // todo 这里应该释放事件的，但是一释放就会出错，我顶不住了
+        // 2020-6-27：todo 这里应该释放事件的，但是一释放就会出错，我顶不住了
+        // 2022-8-21：ThreadMode 必须指定为 POSTING，才能释放事件。（不指定的话，默认值就是 POSTING）
         // EventBus.getDefault().cancelEventDelivery(event)
+        // 2022-8-21 21:57:53 虽然但是，并不需要调用 cancelEventDelivery，直接把这个事件删除即可，搞定！
+        EventBus.getDefault().removeStickyEvent(event)
     }
 
     // 接收用户登录事件
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(sticky = true)
     fun onEvent(event: UserLoginEvent) {
         // 返回上一级
         popBackStack()
